@@ -39,7 +39,7 @@ $\~\~\$
 
 ## \:star2: About This Repo
 
-This repository contains the **Kubernetes manifests** and **Kustomize overlays** for a modern, production-ready GitOps CI/CD workflow.
+This repository contains the **Kubernetes manifests** and **Kustomize overlays** for The CI/CD Gitops Project.
 
 It is managed and updated automatically by the CI/CD pipeline of the [app repo](https://github.com/eli-pavlov/github-actions-cicd-project), and synchronized to Kubernetes clusters by [Argo CD](https://argo-cd.readthedocs.io/en/stable/).
 
