@@ -2,8 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: compliment-generator
-  labels:
-    app: compliment-generator
 spec:
   selector:
     matchLabels:
@@ -15,16 +13,9 @@ spec:
     spec:
       containers:
         - name: compliment-generator
-          image: placeholder  # Will be patched in overlays
+          image: elipavlov/rtproject  # <- No tag here
           ports:
             - containerPort: 5000
-          resources:
-            limits:
-              cpu: "0.5"
-              memory: "512Mi"
-            requests:
-              cpu: "0.1"
-              memory: "128Mi"
           readinessProbe:
             httpGet:
               path: /

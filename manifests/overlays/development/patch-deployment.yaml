@@ -1,17 +1,13 @@
-
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: compliment-generator
 spec:
-  selector:  
-    matchLabels:
-      app: compliment-generator
+  replicas: 1
   template:
     spec:
       containers:
         - name: compliment-generator
-          image: docker.io/elipavlov/rtproject:dev
           resources:
             requests:
               cpu: "100m"
