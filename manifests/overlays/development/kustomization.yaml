@@ -17,4 +17,4 @@ patches:
 images:
 - name: elipavlov/rtproject
   newName: elipavlov/rtproject
-  newTag: dev
+  newTag: dev-1220f8d
