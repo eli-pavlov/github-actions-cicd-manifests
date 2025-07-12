@@ -2,19 +2,19 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
 resources:
-  - ../../base
+- ../../base
 
 patches:
-  - path: patch-deployment.yaml
-    target:
-      kind: Deployment
-      name: compliment-generator
-  - path: patch-service.yaml
-    target:
-      kind: Service
-      name: compliment-generator-service
+- path: patch-deployment.yaml
+  target:
+    kind: Deployment
+    name: compliment-generator
+- path: patch-service.yaml
+  target:
+    kind: Service
+    name: compliment-generator-service
 
 images:
-  - name: elipavlov/rtproject
-    newName: elipavlov/rtproject
-    newTag: dev
+- name: elipavlov/rtproject
+  newName: elipavlov/rtproject
+  newTag: dev
