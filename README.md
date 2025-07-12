@@ -17,8 +17,6 @@ $\~\~\$
 
 </div>
 
-## \:world\_map: GitOps Architecture Diagram
-
 
 $\~\~\$
 
