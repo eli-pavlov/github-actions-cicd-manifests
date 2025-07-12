@@ -4,18 +4,26 @@
 
 <p> Kubernetes manifests & Kustomize overlays for automated GitOps deployments via Argo CD. </p>
 
-<h4> <span> · </span> <a href="https://github.com/eli-pavlov/github-actions-cicd-manifests/blob/main/README.md"> Documentation </a> <span> · </span> <a href="https://github.com/eli-pavlov/github-actions-cicd-project/issues"> Report Bug </a> <span> · </span> <a href="https://github.com/eli-pavlov/github-actions-cicd-project/issues"> Request Feature </a> </h4>
+<h4>
+  <span> · </span>
+  <a href="https://github.com/eli-pavlov/github-actions-cicd-manifests/blob/main/README.md"> Documentation </a>
+  <span> · </span>
+  <a href="https://github.com/eli-pavlov/github-actions-cicd-project/issues"> Report Bug </a>
+  <span> · </span>
+  <a href="https://github.com/eli-pavlov/github-actions-cicd-project/issues"> Request Feature </a>
+</h4>
 
 $\~\~\$
+
 </div>
 
-## :world_map: GitOps Architecture Diagram
+## \:world\_map: GitOps Architecture Diagram
 
 <img src="https://github.com/eli-pavlov/github-actions-cicd-project/blob/master/docs/rtproject-diagram.png" width=1080 />
 
 $\~\~\$
 
-:bookmark_tabs: Table of Contents
+\:bookmark\_tabs: Table of Contents
 
 * [Architecture Diagram](#world_map-gitops-architecture-diagram)
 * [About This Repo](#star2-about-this-repo)
@@ -30,7 +38,7 @@ $\~\~\$
 
 $\~\~\$
 
-## :star2: About This Repo
+## \:star2: About This Repo
 
 This repository contains the **Kubernetes manifests** and **Kustomize overlays** for a modern, production-ready GitOps CI/CD workflow.
 
@@ -45,78 +53,77 @@ It is managed and updated automatically by the CI/CD pipeline of the [app repo](
 
 $\~\~\$
 
-## :gear: Kustomize & Overlay Structure
+## \:gear: Kustomize & Overlay Structure
 
 Kustomize overlays enable environment-specific configuration:
 
-| Folder                       | Purpose                          |
-|------------------------------|----------------------------------|
-| `base/`                      | Shared Deployment/Service specs  |
-| `overlays/development/`      | Dev-specific patches (ports, image tags, resources) |
-| `overlays/production/`       | Prod-specific patches (scaling, ports, image tags) |
-| `argocd/`                    | Argo CD Application manifests    |
+| Folder                  | Purpose                                             |
+| ----------------------- | --------------------------------------------------- |
+| `base/`                 | Shared Deployment/Service specs                     |
+| `overlays/development/` | Dev-specific patches (ports, image tags, resources) |
+| `overlays/production/`  | Prod-specific patches (scaling, ports, image tags)  |
+| `argocd/`               | Argo CD Application manifests                       |
 
 Example overlay structure:
+
+```
 manifests/
 ├── base/
 ├── overlays/
-│ ├── development/
-│ └── production/
+│   ├── development/
+│   └── production/
 └── argocd/
-
-markdown
-Copy
-Edit
+```
 
 $\~\~\$
 
-## :rocket: Argo CD Integration
+## \:rocket: Argo CD Integration
 
 Argo CD tracks this repo for changes and syncs the desired state to your Kubernetes cluster:
 
-- **Dev environment:**  
-  Watches `overlays/development`  
+* **Dev environment:**
+  Watches `overlays/development`
   Deploys automatically on commit
-- **Prod environment:**  
-  Watches `overlays/production`  
+* **Prod environment:**
+  Watches `overlays/production`
   Manual approval via GitHub Environment before deployment
 
 To register the Applications, run:
+
 ```bash
 kubectl apply -f manifests/argocd/application-dev.yaml
 kubectl apply -f manifests/argocd/application-prod.yaml
-$~~$
+```
 
-:wrench: How to Deploy
-Automated via CI/CD:
+$\~\~\$
 
-On every code push and Docker image build, the app repo pipeline:
+## \:wrench: How to Deploy
 
-Updates the correct overlay’s kustomization.yaml with the new image tag (e.g. dev-abcdefg or latest-abcdefg)
+**Automated via CI/CD:**
 
-Commits & pushes the change here
+* On every code push and Docker image build, the app repo pipeline:
 
-Argo CD auto-syncs and deploys
+  * Updates the correct overlay’s `kustomization.yaml` with the new image tag (e.g. `dev-abcdefg` or `latest-abcdefg`)
+  * Commits & pushes the change here
+  * Argo CD auto-syncs and deploys
 
-Manual (for troubleshooting):
+**Manual (for troubleshooting):**
 
-Update image tag in the relevant kustomization.yaml:
+1. Update image tag in the relevant `kustomization.yaml`:
 
-sh
-Copy
-Edit
-cd manifests/overlays/development   # or production
-kustomize edit set image elipavlov/rtproject=elipavlov/rtproject:dev-abcdefg
-git commit -am "Update image tag"
-git push
-Argo CD will detect the change and redeploy.
+   ```sh
+   cd manifests/overlays/development   # or production
+   kustomize edit set image elipavlov/rtproject=elipavlov/rtproject:dev-abcdefg
+   git commit -am "Update image tag"
+   git push
+   ```
+2. Argo CD will detect the change and redeploy.
 
-$~~$
+$\~\~\$
 
-:open_file_folder: Directory Structure
-csharp
-Copy
-Edit
+## \:open\_file\_folder: Directory Structure
+
+```
 github-actions-cicd-manifests/
 ├── LICENSE
 ├── README.md
@@ -137,45 +144,43 @@ github-actions-cicd-manifests/
     └── argocd/
         ├── application-dev.yaml
         └── application-prod.yaml
-$~~$
+```
 
-:arrows_clockwise: Workflow: How Updates Happen
-Code is pushed to app repo
+$\~\~\$
 
-CI/CD pipeline builds/pushes image, updates overlay in this repo with new tag
+## \:arrows\_clockwise: Workflow: How Updates Happen
 
-Change is committed and pushed here
+1. **Code is pushed** to app repo
+2. **CI/CD pipeline builds/pushes image**, updates overlay in this repo with new tag
+3. **Change is committed and pushed** here
+4. **Argo CD detects change** and syncs to cluster
+5. **Kubernetes deployment updated** with new image
 
-Argo CD detects change and syncs to cluster
+$\~\~\$
 
-Kubernetes deployment updated with new image
+## \:warning: License
 
-$~~$
-
-:warning: License
 Distributed under the Apache 2.0 License.
 
 This repo contains only infrastructure code.
-See the app repo for application code licensing.
+See the [app repo](https://github.com/eli-pavlov/github-actions-cicd-project) for application code licensing.
 
-$~~$
+$\~\~\$
 
-:handshake: Contact
-Eli Pavlov
-www.weblightenment.com
-admin@weblightenment.com
+## \:handshake: Contact
 
-Project Repo: github-actions-cicd-manifests
+**Eli Pavlov**
+[www.weblightenment.com](https://www.weblightenment.com)
+[admin@weblightenment.com](mailto:admin@weblightenment.com)
 
-$~~$
+Project Repo: [github-actions-cicd-manifests](https://github.com/eli-pavlov/github-actions-cicd-manifests)
 
-:gem: Acknowledgements
-Kubernetes.io
+$\~\~\$
 
-Kustomize
+## \:gem: Acknowledgements
 
-Argo CD
-
-GitHub Actions
-
-Awesome GitOps
+* [Kubernetes.io](https://kubernetes.io/docs)
+* [Kustomize](https://kustomize.io)
+* [Argo CD](https://argo-cd.readthedocs.io/en/stable/)
+* [GitHub Actions](https://docs.github.com/en/actions)
+* [Awesome GitOps](https://github.com/weaveworks/awesome-gitops)
