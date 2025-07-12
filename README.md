@@ -17,7 +17,7 @@ $\~\~\$
 
 </div>
 
-## \:world\_map: GitOps Architecture Diagram
+## GitOps Architecture Diagram
 
 <img src="https://github.com/eli-pavlov/github-actions-cicd-project/blob/master/docs/rtproject-diagram.png" width=1080 />
 
