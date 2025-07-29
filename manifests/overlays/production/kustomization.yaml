@@ -14,4 +14,4 @@ patches:
 images:
 - name: elipavlov/rtproject
   newName: elipavlov/rtproject
-  newTag: latest-39695a6
+  newTag: latest-0d1e5e9
